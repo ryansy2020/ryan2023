@@ -163,25 +163,25 @@ const headerList = [
     {
         id: 1,
         title: "about me",
-        img: "../images/ryan1.png",
+        img: "./images/ryan1.png",
         link:"#about",
     },
     {
         id: 2,
         title: "my porfolio",
-        img: "../images/editing2.png",
+        img: "./images/editing2.png",
         link:"#porfolio",
     },
     {
         id: 3,
         title: "my contact",
-        img: "../images/ryan5.png",
+        img: "./images/ryan5.png",
         link:"#contact",
     },
     {
         id: 4,
         title: "design",
-        img: "../images/keybord2.png",
+        img: "./images/keybord2.png",
         link:"#about",
     },
 
@@ -229,7 +229,7 @@ const porfolio = [
     {
         id: 1,
         title: "mytv movie website",
-        img: "../images/mytv screeshot.png",
+        img: "./images/mytv screeshot.png",
         link:"https://ryansy2020.github.io/mytv.github.io/",
         desc: "this site is social networking website that post diffrent kind of movies this website is not finish yet it just for representation "
     },
@@ -237,7 +237,7 @@ const porfolio = [
     {
         id: 2,
         title: "tribebot chat system",
-        img: "../images/tribebot screeshot.png",
+        img: "./images/tribebot screeshot.png",
         link: "https://ryansy2020.github.io/syryan.github.io/chatbot.html",
         desc: "tribebot is a chatnot system where you can ask any question this is base on chatgpt system and still not finish it just for representation for the client"
     },
@@ -245,7 +245,7 @@ const porfolio = [
     {
         id: 3,
         title: "tinda ecommerce website",
-        img: "../images/tinda screeshot.png",
+        img: "./images/tinda screeshot.png",
         link: "https://ryansy2020.github.io/tinda-github.io/",
         desc: "tinda is a ecommerce website where you can sell your product to the internet this website is just for presentation its still not finish yet and dont have any database",
     },
@@ -253,7 +253,7 @@ const porfolio = [
     {
         id: 4,
         title: "vonk global company website",
-        img: "../images/vonk global.png",
+        img: "./images/vonk global.png",
         link: "https://vonkglobal.wixsite.com/vonkglobal",
         desc: "vonk global is a company website that represent thier product and work base on constration, advertising and airconditioning",
     },
