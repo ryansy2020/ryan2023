@@ -2,7 +2,7 @@
 // import {}  from './node_modules/dotenv/config.js'
 // import 'dotenv/config.js'
 
-import AI_KEYS from "apikeys.js";
+import AI_KEYS from "../js/apikeys.js";
 
 const apiKey = AI_KEYS
 
