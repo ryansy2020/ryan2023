@@ -163,13 +163,13 @@ const headerList = [
     {
         id: 1,
         title: "about me",
-        img: "/images/ryan1.png",
+        img: "./images/ryan1.png",
         link:"#about",
     },
     {
         id: 2,
         title: "my porfolio",
-        img: "/images/editing2.png",
+        img: "./images/editing2.png",
         link:"#porfolio",
     },
     {
