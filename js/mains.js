@@ -175,13 +175,13 @@ const headerList = [
     {
         id: 3,
         title: "my contact",
-        img: "/images/ryan5.png",
+        img: "./images/ryan5.png",
         link:"#contact",
     },
     {
         id: 4,
         title: "design",
-        img: "/images/keybord2.png",
+        img: "./images/keybord2.png",
         link:"#about",
     },
 
@@ -229,7 +229,7 @@ const porfolio = [
     {
         id: 1,
         title: "mytv movie website",
-        img: "/images/mytv screeshot.png",
+        img: "./images/mytv screeshot.png",
         link:"https://ryansy2020.github.io/mytv.github.io/",
         desc: "this site is social networking website that post diffrent kind of movies this website is not finish yet it just for representation "
     },
@@ -237,7 +237,7 @@ const porfolio = [
     {
         id: 2,
         title: "tribebot chat system",
-        img: "/images/tribebot screeshot.png",
+        img: "./images/tribebot screeshot.png",
         link: "https://ryansy2020.github.io/syryan.github.io/chatbot.html",
         desc: "tribebot is a chatnot system where you can ask any question this is base on chatgpt system and still not finish it just for representation for the client"
     },
@@ -245,7 +245,7 @@ const porfolio = [
     {
         id: 3,
         title: "tinda ecommerce website",
-        img: "/images/tinda screeshot.png",
+        img: "./images/tinda screeshot.png",
         link: "https://ryansy2020.github.io/tinda-github.io/",
         desc: "tinda is a ecommerce website where you can sell your product to the internet this website is just for presentation its still not finish yet and dont have any database",
     },
@@ -253,7 +253,7 @@ const porfolio = [
     {
         id: 4,
         title: "vonk global company website",
-        img: "/images/vonk global.png",
+        img: "./images/vonk global.png",
         link: "https://vonkglobal.wixsite.com/vonkglobal",
         desc: "vonk global is a company website that represent thier product and work base on constration, advertising and airconditioning",
     },
@@ -267,28 +267,28 @@ const graphicDesign = [
     {
         id: 1,
         title: "video Editing",
-        img: "/images/videoedit1.png",
+        img: "./images/videoedit1.png",
         desc: "have knowledge in video editing software such us adobe after effect, primiere, and other online videoeditieng software such us capcut"
     },
 
     {
         id: 2,
         title: "labeling sticker and printing",
-        img: "/images/labeling sticker.png",
+        img: "./images/labeling sticker.png",
         desc: "have knowledge in labeling sticker layouting printing preparation, color theory and color processing"
     },
 
     {
         id: 3,
         title: "layout design",
-        img: "/images/pringting.png",
+        img: "./images/pringting.png",
         desc: "have knowledge in offset printing layouting magazine, books, invits, callingcard and other printing supplies",
     },
 
     {
         id: 4,
         title: "Biilboard Signages Modolar Kioks",
-        img: "/images/billboard.png",
+        img: "./images/billboard.png",
         desc: "have knowldege in billboard, Signanges, kioks, design and interior design for kitchen or store renovation",
     }
 
