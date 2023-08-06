@@ -2,7 +2,7 @@
 // import {}  from './node_modules/dotenv/config.js'
 // import 'dotenv/config.js'
 
-import AI_KEYS from "./apikeys.js";
+import AI_KEYS from "../js/apikeys.js";
 
 const apiKey = AI_KEYS
 
@@ -287,11 +287,12 @@ function textInput(e) {
             }
         
             try{
+                const url = 'https://api.openai.com/v1/chat/completions';
         
                 const response = await fetch('https://api.openai.com/v1/chat/completions', options)
                 const data = await response.json()
                 const apiResult = data.choices[0].message.content
-                // console.log(apiResult);
+                console.log(apiResult);
         
         
                 const element = document.createElement("article")

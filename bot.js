@@ -1,23 +1,7 @@
 
 // apid keys
-const apiKeys = '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'
+const apiKeys = 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0';
 
-// import { config } from "dotenv";
-// import {} from 'dotenv/config'
-// config()
-
-// import dotenv from 'dotenv'
-// dotenv.config()
-
-// console.log(process.env.API_KEY);
-
-// import { Configuration, OpenAIApi } from "openai";
-
-// const openai = new OpenAIApi(new Configuration({
-//     apiKey: process.env.API_KEY
-// }))
-
-// console.log(openai.API_KEY);
 
 const inputChat = document.getElementById("input-text");
 
@@ -33,6 +17,9 @@ const list = document.querySelector(".result-list")
 const deltBtn = document.querySelector(".delete-btn")
 const alertChat = document.querySelector(".alert-chat")
 const botDisplay = document.querySelector(".bot-display")
+const aboutBtn = document.querySelector(".about-btn")
+const modalContainer = document.querySelector(".modal-container")
+const closeModal = document.querySelector(".close-btn")
 
 // bot speech
 const synths = window.speechSynthesis
@@ -70,6 +57,15 @@ speakerMute.addEventListener("click", function() {
 })
 
 
+aboutBtn.addEventListener("click", function() {
+    modalContainer.classList.add("show-modal")
+
+})
+
+closeModal.addEventListener("click", function() {
+    modalContainer.classList.remove("show-modal")
+    console.log("close");
+})
 
 
 let editElement;
@@ -267,36 +263,40 @@ function textInput(e) {
       }
 
     //--xx- date variable--XX--
+      async function getMeaning() {
 
-    // CHAT OPEN AI API------------------------
+ 
+        // --------------dictionary----
+        const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${value}`;
+        const options = {
+	        method: 'GET',
+	        headers: {
+		        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+		        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+	        }
+        };
 
+        try {
+	        // const response = await fetch(url);
+	        // const result = await response.text();
+	        // console.log(`${result.meanings}`);
+            fetch(url)
+            .then( res => res.json())
+            .then(data => {
 
-    async function getMessage() {
-        
-            // console.log("try gtp");
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${apiKeys}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-        
-                    model: "gpt-3.5-turbo",
-                    messages: [{role: "user", content: inputChat.value}],
-                    max_tokens: 300
-                    
-                }) 
-            }
-        
-            try{
-        
-                const response = await fetch('https://api.openai.com/v1/chat/completions', options)
-                const data = await response.json()
-                const apiResult = data.choices[0].message.content
-                console.log(apiResult);
-        
-        
+                // console.log(data);
+
+                const dictionaryData = data
+                // console.log(dictionaryData[0].meanings[0].definitions[0]);
+
+                defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+
+                // JSON.stringify(defineResult, null);
+
+                // thisResult = new Array(defineResult)
+
+                // console.log(thisResult);
+                
                 const element = document.createElement("article")
                 element.classList.add("input-result")
                 const attrib = document.createAttribute("data-id")
@@ -311,7 +311,7 @@ function textInput(e) {
         
                 <div class="bot-response">
                     <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
-                    <p class="bot-title">${apiResult}</p>
+                    <p class="bot-title">"${defineResult}"</p>
                 </div>
                 
                 <div class="date-box">
@@ -321,21 +321,158 @@ function textInput(e) {
                 
                 list.appendChild(element)
         
-                let utterResponse = new SpeechSynthesisUtterance(apiResult)
+                let utterResponse = new SpeechSynthesisUtterance(defineResult)
                 utterResponse.volume = volumeRate
                 synths.speak(utterResponse)
-              
 
-                botDisplay.classList.add("hide-bot")
+            })
 
-            }
-            catch (error) {
+        } catch (error) {
+	        console.error(error);
+
+        }
+
+        botDisplay.classList.add("hide-bot")
+
+      }
+
+
+    //   ------------news API------------------
+
+
+    async function newApi() {
+
+        const newsKey = 'f5bc5c799ed74068bae6486523fed394'
+
+
+        const url = `https://newsapi.org/v2/top-headlines?${value}&apiKey=f5bc5c799ed74068bae6486523fed394`;
+        const options = {
+	        method: 'GET',
+	        headers: {
+		        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+		        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+	        }
+        };
+
+        try {
+	        // const response = await fetch(url);
+	        // const result = await response.text();
+	        // console.log(`${result.meanings}`);
+            fetch(url)
+            .then( res => res.json())
+            .then(data => {
+
+                // console.log(data);
+
+                const newsData = data
+                console.log(newsData);
+
+                newsResult = dictionaryData[0].meanings[0].definitions[0].definition
+
+                // JSON.stringify(defineResult, null);
+
+                // thisResult = new Array(defineResult)
+
+                // console.log(thisResult);
+                
+                const element = document.createElement("article")
+                element.classList.add("input-result")
+                const attrib = document.createAttribute("data-id")
+                attrib.value.id
+                element.setAttributeNode(attrib)
+                
+                element.innerHTML = `
+                <div class="question-box">
+                <p class="title">${value}</p>
+                <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                </div>
         
-                console.error(error);
+                <div class="bot-response">
+                    <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                    <p class="bot-title">"${defineResult}"</p>
+                </div>
+                
+                <div class="date-box">
+                <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                </div>`
         
-            }
+                
+                list.appendChild(element)
+        
+                let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                utterResponse.volume = volumeRate
+                synths.speak(utterResponse)
+
+            })
+
+        } catch (error) {
+	        console.error(error);
+        }
+        
+
+    }
+
+
+    // CHAT OPEN AI API------------------------
+
+
+    async function getMessage() {
+        
+            // console.log("try gtp");
+           // -------------- rapid api chatbot WAIFU API----
+           const url = `https://waifu.p.rapidapi.com/path?user_id=sample_user_id&message=${value}&from_name=Boy&to_name=Girl&situation=Girl%20loves%20Boy.&translate_from=auto&translate_to=auto`;
+           const options = {
+               method: 'POST',
+               headers: {
+                   'content-type': 'application/json',
+                   'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                   'X-RapidAPI-Host': 'waifu.p.rapidapi.com'
+               },
+               body: {}
+           };
            
-             
+           try {
+                const response = await fetch(url, options);
+                const result = await response.text();
+                console.log(url);
+
+               const element = document.createElement("article")
+               element.classList.add("input-result")
+               const attrib = document.createAttribute("data-id")
+               attrib.value.id
+               element.setAttributeNode(attrib)
+               
+               element.innerHTML = `
+               <div class="question-box">
+               <p class="title">${value}</p>
+               <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+               </div>
+       
+               <div class="bot-response">
+                   <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                   <p class="bot-title">${result}</p>
+               </div>
+               
+               <div class="date-box">
+               <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+               </div>`
+       
+               
+               list.appendChild(element)
+       
+               let utterResponse = new SpeechSynthesisUtterance(result)
+               utterResponse.volume = volumeRate
+               synths.speak(utterResponse)
+
+
+           } catch (error) {
+               console.error(error);
+           }
+
+
+// -----xxx--------- rapid api chatbot----
+        
+         
             
     }
         
@@ -382,7 +519,7 @@ function textInput(e) {
     || value.toLowerCase().includes("about") 
     ) {
         
-        response = `tribeBot is a demo version of chatBot system. that developed by Ryan Olfindo
+        response = `tribeBot is a demo version of ChatBot system and an English Dictionary.  that developed by Ryan Olfindo
         this program still under maintenance and not finish yet. where you could ask some question`
         
         let utterResponse = new SpeechSynthesisUtterance(response)
@@ -402,10 +539,807 @@ function textInput(e) {
         synths.speak(utterResponse)
     }
 
-    else {
-        
-        getMessage()
+    else if(value.toLowerCase().includes("are you human") || value.toLowerCase().includes("are you robot")) {
 
+        response = `I am not a human; I am an AI language model. I am an artificial intelligence program created to produce language that resembles 
+        that of a human based on patterns and information from a vast corpus of data. My goal is to engage in natural language dialogue with users 
+        like you in order to help and inform them. 
+        Please don't hesitate to inquire if you need anything or if you have any questions! `
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what is your name") || value.toLowerCase().includes("how do I call you")|| value.toLowerCase().includes('tell your name')) {
+
+        response = `just call me tribebot`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("how old are you") || value.toLowerCase().includes("what is your age")||
+    value.toLowerCase().includes("give your age") || value.toLowerCase().includes("tell me your age")) {
+
+        response = `I was created at the month of april 2023 and I'm still under maintenace do to some coding error and not fully functioning yet`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("who made you") || value.toLowerCase().includes("who created you")||
+    value.toLowerCase().includes("who is your maker") || value.toLowerCase().includes("who is your developer")|| value.toLowerCase().includes("who is your creator")) {
+
+        response = `my maker is Ryan Sy Olfindo`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what is the name of your mother") || value.toLowerCase().includes("who is your mother")||
+    value.toLowerCase().includes("what is your mother name")) {
+
+        response = `I dont have any mother...but my father is Ryan Sy Olfindo`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("how many languages can you speak") || value.toLowerCase().includes("Which languages can you speak")||value.toLowerCase().includes("how many languages do you speak") ||
+    value.toLowerCase().includes("what languages did you know") || value.toLowerCase().includes("what languages do you know") || value.toLowerCase().includes("do you know any languages") ||
+    value.toLowerCase().includes("did you speak different languages") || value.toLowerCase().includes("can you speak different languages")) {
+
+        response = `for the time being I only understand and speak one languages and that english but when then developer already fix his financial issue he will put some languages API on me `
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what is the day today")|| value.toLowerCase().includes('what is today')) {
+
+        const weeks = [
+            'sunday',
+            'monday',
+            'tuesday',
+            'wenesday',
+            'thursday',
+            'friday',
+            'saturday',
+          ];
+
+        const date = new Date()
+        const day = date.getDay()
+
+        const today = weeks[day]
+
+        response = `today is ${today}`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what is the time now")|| value.toLowerCase().includes('what is time now')|| value.toLowerCase().includes('what is the time') ) {
+
+        response = `the time now is ${hours}:${mins} ${zone}`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what is the day yesterday")) {
+
+        const weeks = [
+            'sunday',
+            'monday',
+            'tuesday',
+            'wenesday',
+            'thursday',
+            'friday',
+            'saturday',
+          ];
+
+        const date = new Date()
+        const day = date.getDay()
+
+        const yesterday = weeks[day-1]
+
+        response = `yesterday is ${yesterday}`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+    
+    else if(value.toLowerCase().includes("what is the date today") || value.toLowerCase().includes("give me the date today")) {
+
+        const weeks = [
+            'sunday',
+            'monday',
+            'tuesday',
+            'wenesday',
+            'thursday',
+            'friday',
+            'saturday',
+          ];
+
+        const date = new Date()
+        const day = date.getDay()
+
+        const toDay = weeks[day]
+
+        response = `the date today is ${toDay} / ${month} / ${days} / ${year} * ${hours}:${mins} ${zone}`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what is the meaning of")) {
+
+        const cut = value.slice(23)
+        console.log(cut);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+
+                botDisplay.classList.add("hide-bot")
+    }
+
+    else if(value.toLowerCase().includes("give me the meaning of")) {
+
+        const cut3 = value.slice(22)
+        console.log(cut3);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut3}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    else if(value.toLowerCase().includes("what is a")) {
+
+        const cut2 = value.slice(9)
+        console.log(cut2);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut2}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    else if(value.toLowerCase().includes("define") ||value.toLowerCase().includes("difine") ) {
+
+        const cut4 = value.slice(6)
+        console.log(cut4);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut4}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    else if(value.toLowerCase().includes("define") ||value.toLowerCase().includes("what is the definition of") ) {
+
+        const cut5 = value.slice(25)
+        console.log(cut5);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut5}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    else if(value.toLowerCase().includes("do you know how to") ) {
+
+        const cut10 = value.slice(19)
+        console.log(cut10);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut10}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    else if(value.toLowerCase().includes("do you know") ) {
+
+        const cut10 = value.slice(12)
+        console.log(cut10);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut10}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    else if(value.toLowerCase().includes("what is")) {
+
+        const cut6 = value.slice(7)
+        console.log(cut6);
+
+                // --------------dictionary----
+                const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${cut6}`;
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        // 'X-RapidAPI-Key': 'abcf01d0c2msh33d7d24ba7ad992p16793fjsn356d680a0dc0',
+                        'X-RapidAPI-Host': 'master-dictionary.p.rapidapi.com'
+                    }
+                };
+        
+                try {
+                    // const response = await fetch(url);
+                    // const result = await response.text();
+                    // console.log(`${result.meanings}`);
+                    fetch(url)
+                    .then( res => res.json())
+                    .then(data => {
+        
+                        // console.log(data);
+        
+                        const dictionaryData = data
+                        // console.log(dictionaryData[0].meanings[0].definitions[0]);
+        
+                        defineResult = dictionaryData[0].meanings[0].definitions[0].definition
+        
+                        // JSON.stringify(defineResult, null);
+        
+                        // thisResult = new Array(defineResult)
+        
+                        // console.log(thisResult);
+                        
+                        const element = document.createElement("article")
+                        element.classList.add("input-result")
+                        const attrib = document.createAttribute("data-id")
+                        attrib.value.id
+                        element.setAttributeNode(attrib)
+                        
+                        element.innerHTML = `
+                        <div class="question-box">
+                        <p class="title">${value}</p>
+                        <img src="./images/acct icon.svg" width="40" alt="" class="acct-logo">
+                        </div>
+                
+                        <div class="bot-response">
+                            <img src="./images/tribebot logo3.svg" width="40" alt="" class="chat-logo">
+                            <p class="bot-title">"${defineResult}"</p>
+                        </div>
+                        
+                        <div class="date-box">
+                        <span>${month} / ${days} / ${year} </span> * <span>${hours}:${mins} ${zone} </span>
+                        </div>`
+                
+                        
+                        list.appendChild(element)
+                
+                        let utterResponse = new SpeechSynthesisUtterance(defineResult)
+                        utterResponse.volume = volumeRate
+                        synths.speak(utterResponse)
+        
+                    })
+        
+                } catch (error) {
+                    console.error(error);
+                }
+                
+                botDisplay.classList.add("hide-bot")
+
+    }
+
+    // ------------------- essential question----
+    else if(value.toLowerCase().includes("how are you") || value.toLowerCase().includes("how are you doing") || 
+    value.toLowerCase().includes("how are you going") || value.toLowerCase().includes("are you ok") || value.toLowerCase().includes("are you fine today") ) {
+
+        response = `I'm really fine today thanks... `
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("what up") || value.toLowerCase().includes("yo! whats up") || 
+    value.toLowerCase().includes("what's up") || value.toLowerCase().includes("yo thier") || value.toLowerCase().includes("hi thier") ) {
+
+        response = `is such a goodday today`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("good morning") || value.toLowerCase().includes("good evening") || 
+    value.toLowerCase().includes("good afternoon") || value.toLowerCase().includes("good bye") || value.toLowerCase().includes("good night") ) {
+
+        response = `have a goodday to you to`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("how can you help me") || value.toLowerCase().includes("what can you do") || value.toLowerCase().includes("how can you help me") || 
+    value.toLowerCase().includes("what else can you do")) {
+
+        response = `sorry I cannot help you a lot I only created to ask some question and my response is still not function verywell`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("tell me something")) {
+
+        response = `sorry I cannot help you a lot I only created to ask some question and my response is still not function verywell`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+    else if(value.toLowerCase().includes("hello")|| value.toLowerCase().includes("hi") ) {
+
+        response = `how can I help you`
+
+        let utterResponse = new SpeechSynthesisUtterance(response)
+        utterResponse.volume = volumeRate
+        synths.speak(utterResponse)
+    }
+
+     // ------xx------------- essential question---xx-
+
+    else {
+        getMeaning()
+        // getMessage()
+
+            let utterResponse = new SpeechSynthesisUtterance(response)
+            utterResponse.volume = volumeRate
+            synths.speak(utterResponse)
     }
 
 
@@ -481,7 +1415,6 @@ function textInput(e) {
 
         console.log("ask me");
       
-
     }
     
 
@@ -512,8 +1445,8 @@ function clearItem() {
             
             alertBox.classList.add("show-alert")
 
-            let utterResponse = new SpeechSynthesisUtterance("All Items is already deleted.. Now you can ask more question")
-            synths.speak(utterResponse)
+            // let utterResponse = new SpeechSynthesisUtterance("All Items is already deleted.. Now you can ask more question")
+            // synths.speak(utterResponse)
 
             setTimeout(() => {
 

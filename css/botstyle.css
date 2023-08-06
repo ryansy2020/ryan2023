@@ -29,60 +29,64 @@ body {
 ::-webkit-scrollbar {
     height: 0.75rem;
     width: 0.75rem;
-    background: gray;
+    background: var(--applegreen);
 
 }
 
 
 
 ::-webkit-scrollbar-thumb {
-    background: var(--dark);
+    background: var(--applegreen);
     border-radius: 1rem;
     border: 0.5px solid white;
 
 }
 
 
+
 :root {
 
-    /*---------Linear Gradient-------------*/
-    --darklighht: linear-gradient(260deg, rgba(0, 0, 0) 0%,  rgba(0, 0, 5) 35%, rgba(23, 22, 22, 1) 100%);
-    --darksky: linear-gradient(90deg, rgba(4,1,43,1) 0%, rgba(13,6,130,1) 50%, rgba(4,1,43,1) 100%);
-    --darksky2: radial-gradient(circle, rgba(4,1,43,1) 0%, rgba(13,6,130,1) 30%, rgba(4,1,43,1) 90%);
-    --preDark: radial-gradient(circle, rgba(20,20,22,1) 0%, rgba(11,11,11,1) 45%, rgba(1,0,8,1) 100%);
-    --darkapple: linear-gradient(315deg, #000000 0%, #1c1a1f 74%);
-    --darkapple2: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.192) 40%, hwb(264 10% 88%) 74%, hwb(264 10% 88%) 100%);
-    --cyan: #4158D0;
-    --gradeientmegnta: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+   /*---------Linear Gradient-------------*/
+   --darklighht: linear-gradient(260deg, rgba(0, 0, 0) 0%,  rgba(0, 0, 5) 35%, rgba(23, 22, 22, 1) 100%);
+   --darksky: linear-gradient(90deg, rgba(4,1,43,1) 0%, rgba(13,6,130,1) 50%, rgba(4,1,43,1) 100%);
+   --darksky2: radial-gradient(circle, rgba(4,1,43,1) 0%, rgba(13,6,130,1) 30%, rgba(4,1,43,1) 90%);
+   --preDark: radial-gradient(circle, rgba(20,20,22,1) 0%, rgba(11,11,11,1) 45%, rgba(1,0,8,1) 100%);
+   --darkapple: linear-gradient(315deg, #000000 0%, #1c1a1f 74%);
+   --darkapple2: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.192) 40%, hwb(264 10% 88%) 74%, hwb(264 10% 88%) 100%);
+   --gradeientmegnta: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+   --gradeientmegnta2: linear-gradient(-90deg, rgba(65, 89, 208, 0.813) 0%, rgba(200, 80, 192, 0.887) 46%, rgba(255, 204, 255, 0.838) 100%);
+   --gradeientblue:  linear-gradient(90deg, rgba(2,0,36,1) 25%, rgba(12,12,140,1) 58%, rgba(10,106,238,1) 100%);
+   /*--X-------Linear Gradient-----------X--*/
 
-    /*--X-------Linear Gradient-----------X--*/
+   /*--------- Color-------------*/
+   --darkblue: #04012b;
+   --applegreen: rgba(12,12,140,1);
+   --applegreen2: #00FF00;
+   --dark: #000000;
+   --lightDark: #171616;
+   --lavander: rgb(90, 20, 160);
+   --cyan: #0057FF;
+   --lightcyan: rgb(3, 204, 244);
+   --lightgray: rgb(210, 206, 206);
+   --cyan: #4158D0;
+   --lightcyan: rgba(12,12,140,1);
 
-    /*--------- Color-------------*/
-    --darkblue: #04012b;
-    --applegreen: #00FF00;
-    --dark: #000000;
-    --lightDark: #171616;
-    --lavander: rgb(90, 20, 160);
-    --cyan: #0057FF;
-    --lightcyan: rgb(3, 204, 244);
-    --lightgray: rgb(210, 206, 206);
+   /*----X----- Color----------X---*/
 
-    /*----X----- Color----------X---*/
-
-        /* fonts */
-        --ff-primary: "Roboto", sans-serif;
-        --ff-secondary: "Open Sans", sans-serif;
-        /* letterspacing */
-        --transition: all 0.3s linear;
-        --spacing: 0.25rem;
-        --radius: 0.5rem;
-        --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        --max-width: 1170px;
-        --fixed-width: 620px;
-    
-        /* gradient */
-        --dark-sky: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7));
+       /* fonts */
+       --ff-primary: "Roboto", sans-serif;
+       --ff-secondary: "Open Sans", sans-serif;
+       /* letterspacing */
+       --transition: all 0.3s linear;
+       --spacing: 0.25rem;
+       --radius: 0.5rem;
+       --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+       --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+       --max-width: 1170px;
+       --fixed-width: 620px;
+   
+       /* gradient */
+       --dark-sky: linear-gradient(rgba(63, 208, 212, 0.5), rgba(0, 0, 0, 0.7));
 
 
 }
@@ -152,7 +156,7 @@ h1, h2, h3, h4 {
 /* nav */
 
 nav {
-    background: var(--dark);
+    background: var(--lightcyan);
     width: 100%;
     height: 4rem;
     transition: all 2s ease-out;
@@ -337,6 +341,9 @@ nav {
     text-transform: capitalize;
     font-size:0.8rem;
     transition: all 0.5s ease-in-out;
+    color: white;
+    border: 1.5px solid white;
+    box-shadow: 0 2px 4px var(--dark);
 }
 
 .site-btn   {
@@ -352,8 +359,6 @@ nav {
     font-size:0.5rem;
 
 }
-
-
 
 .click-clear {
     color: red !important;
@@ -392,7 +397,7 @@ nav {
     text-transform: capitalize;
     letter-spacing: var(--spacing);
     display: block;
-    margin: 0 1rem;
+    margin: 0 0.5rem;
     font-weight: bold;
     padding: 0.2rem;
     cursor: pointer;
@@ -542,7 +547,7 @@ nav {
 
 .chat-logo {
 
-    border: 2px solid black;
+    border: 2px solid white;
     padding: 0.25rem;
     border-radius: 10rem;
     width: 40px;
@@ -550,7 +555,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--dark);
+    background-color: var(--applegreen);
+    box-shadow: 0 5px 5px gray;
 
 }
 
@@ -565,6 +571,7 @@ nav {
     align-items: center;
     justify-content: center;
     background-color: white;
+    box-shadow: 0 5px 5px gray;
 }
 
 .bot-response{
@@ -613,7 +620,7 @@ nav {
 
 .bot-title {
     border: 1px solid white;
-    background-color: var(--dark);
+    background-color: var(--applegreen);
     width: 100%;
     height: 100%;
     height: auto;
@@ -699,7 +706,7 @@ nav {
 .form-container{
     width: 100%;
     height: 100%;
-    background-color: var(--dark);
+    background: var(--gradeientblue);
     display: flex;
     align-items: first baseline;
     justify-content: center;
@@ -729,7 +736,7 @@ nav {
     width: 100%;
     height: 100px;
     max-height: 70px;
-    background-color: var(--dark);
+    background-color: var(--applegreen);
     border-top: 2px solid white;
     border-bottom: 2px solid white;
     /* margin-top: -4%; */
@@ -754,7 +761,7 @@ nav {
     height: 40px;
     border-radius: 0rem 1rem 1rem 0rem;
     border: 1.5px solid white;
-    background: var(--dark);
+    background: var(--gradeientblue);
     padding: 0.5rem;
     display: flex;
     align-items: center;
@@ -848,6 +855,120 @@ nav {
 /* -------xx-------microphone modal------------xx------------ */
 
 
+
+/* ------------modal porfolio--------------------- */
+.modal-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(165, 164, 164, 0.696);
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    z-index: 200;
+    transform: translateX(-110%);
+    transition: 1s all ease-in-out;
+    opacity: 10%;
+    background-image: url(../images/web\ bg2.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 100%;
+
+}
+
+
+.show-modal {
+
+    transform: translateX(0%);
+    transition: 1s all ease-in-out;
+    opacity: 100%;
+
+}
+
+.modal-box {
+
+    background: var(--gradeientblue); 
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin: 2rem;
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 15px 20px var(--dark);
+    border-radius: 1rem;
+    border: 2px solid white;
+    font-size: 1rem;
+    text-align:left;
+    position: relative;
+}
+
+
+.img-box {
+    margin: 1rem;
+}
+
+.website-img {
+    /* width: 320px; */
+    height: 250px;
+}
+
+.modal-info {
+    width: 300px;
+}
+
+.close-btn{
+    top: 5%;
+    left: 92%;
+    position: absolute;
+    z-index: 200;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    border: 2px solid white;
+    padding: 0.4rem;
+    border-radius: 10rem;
+    height: 30px;
+    width: 30px;
+    background-color: red;
+    transform: rotate(0deg);
+    transition: 1s all ease-in-out;
+}
+
+.close-btn:hover {
+    box-shadow: 0 5px 5px var(--dark);
+    transform: rotate(-235deg);
+    transition: 1s all ease-in-out;
+}
+
+.modal-btn {
+width: 100%;
+height: 30px;
+border-style: none;
+border-radius: 2rem;
+background-color: red;
+border: 2px solid white;
+text-shadow: 0 5px 5px var(--dark);
+margin: 1rem;
+padding: 0.25rem;
+
+}
+
+.modal-btn a {
+    color: white;
+}
+
+/* ---xx---------modal porfolio------------xx--------- */
+
+
+
+
 /* ----------------footer------------- */
 
 
@@ -900,7 +1021,7 @@ nav {
         letter-spacing: var(--spacing);
         display: block;
         transition: var(--transition);
-        margin: 0 1rem;
+        margin: 0 0.5rem;
         font-weight: bold;
         padding: 0;
       }
@@ -965,6 +1086,14 @@ nav {
         
     }
 
+/* ----- modal---------- */
+
+ .modal-container {
+    padding: 0rem 2rem;
+   align-items: center;
+   justify-content: center;
+   top: -20%;
+ }
 
 
 }
@@ -1136,6 +1265,7 @@ nav {
     }
 
 
+
 }
 
 /* -----xx------- media size 720px ----------xx-----*/
@@ -1275,6 +1405,32 @@ nav {
 
     }
 
+    
+   .modal-box {
+
+    flex-direction: column;
+    padding: 0.5rem;
+    width: 100%;
+    height: 85%;
+    margin: 2rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+   }
+
+   .modal-container {
+    padding: 0rem 2rem;
+    align-items: center;
+    justify-content: center;
+    top: 0%;
+   }
+
+   .close-btn {
+    left: 88%;
+    top: 2%;
+   }
+
     /* ----XX----------contact----------------XX---- */
 
     #footer {
@@ -1359,6 +1515,25 @@ nav {
         border: 1px solid red;
     }
 
+    .modal-container {
+        top: 0%;
+    
+       }
+    
+       .modal-box {
+    
+        height: 68%;
+    
+       }
+
+       .img-box {
+        margin-top: 2rem;
+    }
+
+    .website-img {
+        margin: 1rem;
+        padding:2rem;
+    }
 
 }
 
@@ -1383,6 +1558,25 @@ nav {
         height: 42vh;
     }
 
+    .modal-container {
+        padding:  1rem;
+    }
+    
+
+    .modal-box {
+        padding: 0rem 1rem;
+        height: 80%;
+    }
+
+    .img-box {
+        margin-top: 2rem;
+    }
+
+    .website-img {
+        margin: 1rem;
+        padding:2rem;
+    }
+
 }
 
 @media only screen and (max-width: 375px) {
@@ -1404,6 +1598,35 @@ nav {
 
     #form-section {
         height: 30vh;
+    }
+
+    .modal-container {
+        padding: 1rem;
+    }
+
+    .graphicmodal-container {
+        padding: 1rem;
+    }
+
+    .modal-box {
+        padding: 0rem 1rem;
+        height: 90%;
+    }
+
+    .graphicmodal-box {
+        padding: 0rem 1rem;
+        height: 90%;
+    }
+
+    .img-box {
+        margin-top: 2rem;
+       
+    }
+
+    .website-img {
+        margin: 0rem;
+        padding: 2rem;
+        
     }
 
 }
